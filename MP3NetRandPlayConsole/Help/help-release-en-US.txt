@@ -1,0 +1,85 @@
+﻿MP3NetRandPlayConsole processes all MP3 files under the supplied path
+(including all folders and subfolders). If a file name is provided as
+the input argument, the folder for that file is used to find the MP3
+files. You can set your default MP3 player to MP3NetRandPlayConsole
+by right clicking an MP3 file, and click the Change button next to
+"Opens with", then browse to the EXE. The console window will open
+automatically and close when all the MP3s under the folder have
+played. MP3NetRandPlayConsole does not play one MP3 file; it plays all
+the MP3s under a folder. MP3NetRandPlayConsole uses the console window
+(no forms or custom windows).
+
+This Help is for the RELEASE mode EXE of MP3NetRandPlayConsole. This EXE
+plays the audio from each MP3 file under the folder path. The MP3s are
+played in random order, with exceptions as noted below, and displays
+selected MP3 informational tags.
+
+MP3NetRandPlayConsole (DEBUG and RELEASE) may be downloaded from
+https://github.com/ggocek/MP3NetRandPlayConsole
+This is the best place to report bugs.
+Let me know if you want to donate your time to translate this help
+information into other languages.
+
+You would think that Windows Media Player in shuffle mode would be a
+better choice, wouldn't you? My experience is that when I loaded a lot
+of MP3s from a lot of folders (one folder per CD), WMP did not do a
+good job of randomly selecting songs and I kept hearing a few artists
+over and over. The freeware "A Random Music Player" skipped a lot of
+my MP3 files due to a software issues desribed in the DEBUG help.
+MP3NetRandPlayConsole fixes these issues, but only on the console.
+
+If your folder name has blank spaces or special characters, put quotes
+around the folder name, e.g.:
+MP3NetRandPlayConsole "C:\Gary's Folder"
+
+For troubleshooting information or implementation details, view the HELP
+information from the DEBUG mode EXE. In particular, if you have an MP3
+file that MP3NetRandPlayConsole won't play, there are some suggestions
+in the DEBUG mode help's troubleshooting section.
+
+When MP3NetRandPlayConsole is started with a valid folder containing
+MP3 files, the count is displayed and then the songs play.
+Information about the song is displayed along with the elapsed time of
+the playback. For example:
+
+C:\Release>MP3NetRandPlayConsole.exe C:\cd-music\Rock-Blues\
+537 MP3 files, playing in random order.
+
+21:05:21 1/537 C:\cd-music\Rock-Blues\The Runaways\The Best of the Runaways 1987\10 Wasted.mp3
+Ctrl-C to skip current MP3. Ctrl-C five times quickly to exit program.
+Title: Wasted
+Artist: The Runaways
+Album: The Best of the Runaways
+Year: 1987
+Duration: 00:03:25
+Elapsed: 00:01:23
+
+In the example above, 21:05:21 is the current time.
+1/537 says it is the first of 537 songs to be played.
+If there are more than 25 MP3 files, they will be played in random order.
+If 25 or fewer, the files will be played in order. There is no way to
+adjust this setting. If you want specific files to play, put the files
+in their own folder.
+The file name of the current song is displayed.
+While a song is playing, hit Ctrl-C to skip to the next random song. If
+Ctrl-C is clicked five times withint one minute, the program will end.
+If five files are skipped within one minute, the program will end.
+
+While playing in random order, MP3NetRandPlayConsole remembers the
+artist of the previous song. If the next song randomly has the same
+artist, that next song will be skipped. After that, the process
+resets, so the NEXT song in random order will always play, even if it
+has the same artist of the one that was skipped.
+
+To clarify, if you curate a party mix with a set of 100 MP3s,
+MP3NetRandPlayConsole will play them in random order and you can't
+change that. If you have a lot of Taylor Swift MP3s in your mix, the
+odds of skipping a song will be high in order to avoid flooding your
+party with the same artist over and over.
+
+The song information comes from "tags" on the MP3 file. These tags are
+standardized, so the Duration tag contains the lenght of the song in
+hours, minutes and seconds. However, MP3 tags are usually optional,
+so if an MP3 file has no value for a tag, MP3NetRandPlayConsole will
+play the MP3 but it won't show a value for the tag. You can use a free
+program like Mp3Tag to set the values.

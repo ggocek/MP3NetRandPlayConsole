@@ -1,0 +1,119 @@
+﻿MP3NetRandPlayConsole processes all MP3 files under the supplied path
+(including all folders and subfolders). If a file name is provided as
+the input argument, the folder for that file is used to find the MP3
+files. MP3NetRandPlayConsole uses the console window (no forms or
+custom windows).
+
+This Help is for the DEBUG mode EXE of MP3NetRandPlayConsole. This EXE
+does not play the audio from MP3 files. This EXE displays details about
+the data in each MP3 file under the folder path. The RELEASE mode EXE
+plays the audio.
+
+MP3NetRandPlayConsole (DEBUG and RELEASE) may be downloaded from
+https://github.com/ggocek/MP3NetRandPlayConsole
+MP3NetRandPlayConsole is written in C#.
+
+All I wanted to do was play MP3 files from a folder structure in random
+order. The obvious approach was to use Windows Media Player in shuffle
+mode, but my experience was that it did not do a good job of randomly
+selecting songs when the number of files was large. I have tested
+MP3NetRandPlayConsole with over 8000 MP3 files in hundreds of folders,
+mostly ripped from CDs, plus downloads and original recordings.
+
+Then I found freeware called "A Random Music Player", which randomized
+well but was not able to play many of my MP3s. ARMP does not crash, but
+it simply skips some of my MP3s. So, I decided to write my own software
+to figure out why all this is so hard.
+
+BACKGROUND:
+MP3NetRandPlayConsole originally used Mp3Sharp via NuGet to load a
+stream of bytes from an MP3 file. NAudio via Nuget is used to play the
+stream on the default audio device, and TagLibSharp via NuGet is used to
+extract ID3 tags. Immediately, I found the problem that is the likely
+cause of ARMP skipping some files: the version of Mp3Sharp from NuGet is 
+the Nihlus version from GitHub, and this version is buggy with
+performance issues. I don't know if there is a less buggy version of
+Mp3Sharp (aside from this MP3NetRandPlayConsole) or why the Nihlus
+version is connected to NuGet.
+https://github.com/Nihlus/MP3Sharp
+
+TROUBLESHOOTING:
+The RELEASE mode EXE for MP3NetRandPlayConsole fixes bugs in Nihlus that
+have not been uploaded to GitHub. If you look at the source code, look
+for comments marked with "ggocek". The DEBUG version has minor edits to
+count and display errors, but no edits to fix the errors. I still see
+occasional errors in RELEASE mode. If you're having trouble with a
+specific MP3 file, try these steps:
+(1) Attempt to play the file with Windows Media Player. If WMP won't
+play the MP3, then the MP3 is junk and unrecoverable. If WMP plays OK,
+proceed.
+(2) Use Audacity to open and re-export the MP3 file. I have found this
+fixes all errors I have noticed with Nihlus. I have used WMP and other
+programs to rip MP3s from CDs. Apparently, this is error-prone, and the
+resulting MP3s sometimes do not conform well to MPEG-1 Audio Layer 3.
+My version of Audacity removes cover art, I don't know why.
+(3) Alternatively, fix Nihlus and write your own player, or fix
+MP3NetRandPlayConsole. If your fix is simple, let me know via GitHub and
+I will fix MP3NetRandPlayConsole. I reported the Nihlus issues at
+ZaneDubya since Nihlus has no "Issues" tab.
+
+OUTPUT EXPLANATION:
+The DEBUG EXE does not play MP3s, it only displays some debugging
+information about each MP3 under the command line folder argument.
+MP3NetRandPlayConsole looks recursibely in an under the folder. If there
+are no runtime exceptions, the output looks something like this:
+
+C:\cd-music-testfiles\z-error-mp3s\INVALID_VERSION_DETECTED_many.mp3
+00006 ok InvLyr=6 InvSmp=8 InvVer=4 FullRd=0 ZerByt=0 3,393.750/2.604 = 1,303.3 bps
+
+"00006" says that this was the 6th file in the folder (there were five
+files reported before this one, and there may be more after). The
+program shows a line like this for each MP3. Ideally, the five
+attributes have a value of zero. In my experience, NAudio can play the
+file as long as no exception is thrown. When there is no exception, "ok"
+appears after the initial numnber. The next five counts are for data
+issues noticed by Mp3Sharp while loading a file. I am not an MP3 expert,
+so if these are meaningful to you, well, la dee da.
+InvLyr - number of invalid layers in a block.
+InvSmp - number of invalid sample rates in a block.
+InvVer - number of invalid versions in a block.
+FullRd - number of times Mp3Sharp hit an unexpected end-of-stream.
+ZerByt - number of times zero bytes read was noticed in a block.
+Mp3Dur - the ID3 Duration tag. This is not calculated by
+MP3NetRandPlayConsole. The ID3 tag may be null, empty or incorrect.
+
+Audacity fixes the invalid versions, but not the other attributes.
+
+The output line then shows 3,393.750, the length of the stream in bytes
+divided by 1024, i.e., the length of the stream in megabytes.
+Then a "/" followed by
+2.604, the number of seconds it took for Mp3Sharp to load the file.
+Therefore, the final number 1,303.3 bps is the number of bytes loaded
+per second. My observation is that in DEBUG mode, 1303 bps is typical,
+but will depend on your device.
+
+At the very end, there will be an error count like:
+5 MP3 files in error at 12/27/2023 8:56:58 AM
+This is the number of MP3s that had either an exception or the number
+of invalid versions is greater than zero. The other attributes are not
+counted as errors since they do not cause the MP3 to be unplayable and
+cannot be fixed by re-exporting with Audacity, and I don't know what
+they mean.
+
+MP3NetRandPlayConsole has some performance improvements. Nihlus handles
+the end of the MP3 stream by throwing an exception, and I changed that
+to return an EOF flag since exception handling is expensive.
+
+The DEBUG version throws exceptions for some files. Most often, this is
+"Index was outside the bounds of the array." Nihlus uses an array with
+constants, and sometimes there aren't enough array elements. I sometimes
+see "Object reference not set to an instance of an object." For some
+files, code paths run without first initializing a variable. I left the
+bugs in place in DEBUG mode because my opinion is that it is best to fix
+data issues in an MP3 with Audacity than to work around the data issue,
+especially if you want to share the MP3 with other users who may
+struggle with bad data.
+
+ARMP, mentioned above, doesn't fix the bugs and doesn't explain why some
+MP3s are skipped. WMP doesn't skip any MP3s, but does a lousy job of
+randomizing the order.
