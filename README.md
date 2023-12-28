@@ -35,6 +35,8 @@ console application  tested under Windows 10 and Windows 11. The source
 code is C# and uses .NET Framework. As of December, 2023, the preferred
 version of .NET was 4.8.1.
 
+Find the files in bin-debug.zip and bin-release.zip .
+
 The app.config file has no special attributes.
 
 The DEBUG mode EXE loads MP3 file data from a folder (recursively
