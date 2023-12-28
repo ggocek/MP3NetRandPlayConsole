@@ -4,10 +4,10 @@
     <ProjectView>ShowAllFiles</ProjectView>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
-    <StartArguments>"C:\Users\gary\Desktop\podcasts\cd-music\Folk\Kim Lowings and the Greenwood\Wild and Wicked Youth"</StartArguments>
+    <StartArguments>"C:\Users\gary\Desktop\podcasts\cd-music\Soundtrack\Music from the Film %27Amadeus%27 1990"</StartArguments>
     <StartWorkingDirectory>C:\Users\gary\Desktop\</StartWorkingDirectory>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'">
-    <StartArguments>/h</StartArguments>
+    <StartArguments>C:\Users\gary\Desktop\podcasts\cd-music\Soundtrack\Music from the Film %27Amadeus%27 1990</StartArguments>
   </PropertyGroup>
 </Project>

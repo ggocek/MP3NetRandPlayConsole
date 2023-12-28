@@ -606,12 +606,16 @@ namespace MP3NetRandPlayConsole
             Console.ForegroundColor = ConsoleColor.Yellow;
 
             // Title            
-            Console.WriteLine("Title: " + mp3Tag.Tag.Title);
+            Console.WriteLine("Title: " + mp3Tag.Tag.Title.Trim());
 
             // Artist
             if (mp3Tag.Tag.Performers.Length > 0)
             {
-                Console.WriteLine("Artist: " + mp3Tag.Tag.Performers[0]);
+                Console.WriteLine("Artist: " + mp3Tag.Tag.Performers[0].Trim());
+            }
+            else if (mp3Tag.Tag.AlbumArtists.Length > 0)
+            {
+                Console.WriteLine("Artist: " + mp3Tag.Tag.AlbumArtists[0].Trim());
             }
             else
             {
@@ -619,7 +623,7 @@ namespace MP3NetRandPlayConsole
             }
 
             // Album            
-            Console.WriteLine("Album: " + mp3Tag.Tag.Album);
+            Console.WriteLine("Album: " + mp3Tag.Tag.Album.Trim());
 
             // Year
             Console.WriteLine("Year: " + mp3Tag.Tag.Year.ToString());
