@@ -3,7 +3,7 @@ Play in random order or debug MP3 files. Windows 10/11 console window.
 
 ## Background
 (c) Gary Gocek, 2023. See GitHub for licensing:
-https://GITHUB.
+[https://GITHUB.](https://github.com/ggocek/MP3NetRandPlayConsole)
 
 All I wanted to do was play MP3 files from a folder structure in random
 order. The obvious approach was to use Windows Media Player in shuffle
