@@ -127,9 +127,7 @@
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="MP3SharpZip\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Content Include="Help\help-debug-es-US.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
