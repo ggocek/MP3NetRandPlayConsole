@@ -1,0 +1,6 @@
+﻿mp3scrUi, copyright (c) 2024, Gary Gocek
+All rights reserved.
+Edit config files for mp3scraper.
+
+2024-01-21
+First release.
